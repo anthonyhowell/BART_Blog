@@ -15,8 +15,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver pageableArgumentResolver = new PageableHandlerMethodArgumentResolver();
-        pageableArgumentResolver.setFallbackPageable(new PageRequest(1, 10, new Sort(Sort.Direction.DESC, "id")));
+        pageableArgumentResolver.setOneIndexedParameters(true);
+        pageableArgumentResolver.setFallbackPageable(new PageRequest(0, 10, new Sort(Sort.Direction.DESC, "id")));
         argumentResolvers.add(pageableArgumentResolver);
+        super.addArgumentResolvers(argumentResolvers);
     }
 
 }
